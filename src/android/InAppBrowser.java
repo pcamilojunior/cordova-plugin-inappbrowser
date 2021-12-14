@@ -358,7 +358,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     @Override
     public void onPause(boolean multitasking) {
-        if (shouldPauseInAppBrowser) {
+        if (shouldPauseInAppBrowser && inAppWebView != null) {
             inAppWebView.onPause();
         }
     }
@@ -368,7 +368,7 @@ public class InAppBrowser extends CordovaPlugin {
      */
     @Override
     public void onResume(boolean multitasking) {
-        if (shouldPauseInAppBrowser) {
+        if (shouldPauseInAppBrowser && inAppWebView != null) {
             inAppWebView.onResume();
         }
     }
