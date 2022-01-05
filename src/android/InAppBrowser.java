@@ -712,6 +712,8 @@ public class InAppBrowser extends CordovaPlugin {
             }
             if (features.get(BEFORELOAD) != null) {
                 beforeload = features.get(BEFORELOAD);
+            } else {
+                beforeload = "";
             }
             String fullscreenSet = features.get(FULLSCREEN);
             if (fullscreenSet != null) {
