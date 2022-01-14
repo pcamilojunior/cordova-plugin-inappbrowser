@@ -41,7 +41,7 @@
         _eventHandler: function (event) {
             if (event && (event.type in this.channels)) {
                 if (event.type === 'beforeload') {
-                    this.channels[event.type].fire(event, this._loadAfterBeforeload);
+                    this.channels[event.type].fire(event, this._loadAfterBeforeload.bind(this));
                 } else {
                     this.channels[event.type].fire(event);
                 }
