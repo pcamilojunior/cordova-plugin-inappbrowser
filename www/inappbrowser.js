@@ -94,7 +94,7 @@
     };
 
     module.exports = {
-      open: function (strUrl, strWindowName, strWindowFeatures, callbacks) {
+      open: function (strUrl, strWindowName, strWindowFeatures, pageTitle, pageSubTitle, callbacks) {
         console.log('Started Open');
           // Don't catch calls that write to existing frames (e.g. named iframes).
           if (window.frames && window.frames[strWindowName]) {
@@ -117,7 +117,7 @@
 
           strWindowFeatures = strWindowFeatures || '';
 
-          exec(cb, cb, 'InAppBrowser', 'open', [strUrl, strWindowName, strWindowFeatures]);
+          exec(cb, cb, 'InAppBrowser', 'open', [strUrl, strWindowName, strWindowFeatures, pageTitle, pageSubTitle]);
           return iab;
       },
       openSystemBrowser: function (strUrl, strWindowName, strWindowFeatures, callbacks) {
