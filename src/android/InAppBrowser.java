@@ -119,8 +119,6 @@ public class InAppBrowser extends CordovaPlugin {
     private static final String BEFORELOAD = "beforeload";
     private static final String FULLSCREEN = "fullscreen";
 
-    private static final String WEB_VIEW_TITLE = "webViewTitle";
-
     private static final List customizableOptions = Arrays.asList(CLOSE_BUTTON_CAPTION, TOOLBAR_COLOR, NAVIGATION_COLOR, CLOSE_BUTTON_COLOR, FOOTER_COLOR);
 
     private InAppBrowserDialog dialog;
@@ -1240,9 +1238,11 @@ public class InAppBrowser extends CordovaPlugin {
                 TextView close = new TextView(cordova.getActivity());
                 close.setText(closeButtonCaption);
                 close.setTextSize(20);
+                close.setTypeface(null, Typeface.BOLD);
+                close.setTextColor(Color.BLACK);
                 if (closeButtonColor != "") close.setTextColor(android.graphics.Color.parseColor(closeButtonColor));
                 close.setGravity(android.view.Gravity.CENTER_VERTICAL);
-                close.setPadding(this.dpToPixels(10), 0, this.dpToPixels(10), 0);
+                close.setPadding(0, this.dpToPixels(2), this.dpToPixels(2), 0);
                 _close = close;
             } else {
                 ImageView close = new ImageView(cordova.getActivity());
@@ -1286,9 +1286,13 @@ public class InAppBrowser extends CordovaPlugin {
             dialog = new InAppBrowserDialog(cordova.getActivity(), android.R.style.Theme_NoTitleBar);
             dialog.getWindow().getAttributes().windowAnimations = android.R.style.Animation_Dialog;
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            if (fullscreen) {
+
+            /**
+             * Disaled for now
+             * if (fullscreen) {
                 dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            }
+            }**/
+
             dialog.setCancelable(true);
             dialog.setInAppBroswer(getInAppBrowser());
 
@@ -1353,7 +1357,7 @@ public class InAppBrowser extends CordovaPlugin {
 
             // Adding title page
             if (webViewTitle != null && !webViewTitle.isEmpty()) {
-                View titleUrlPage = getTitlePage(webViewTitle);
+                TextView titleUrlPage = getTitlePage(webViewTitle);
                 toolbar.addView(titleUrlPage);
             }
 
@@ -1562,6 +1566,7 @@ public class InAppBrowser extends CordovaPlugin {
             back.setLayoutParams(backLayoutParams);
             back.setContentDescription("Back Button");
             back.setId(Integer.valueOf(2));
+
             Resources activityRes = cordova.getActivity().getResources();
             int backResId = activityRes.getIdentifier("ic_back", "drawable", cordova.getActivity().getPackageName());
             Drawable backIcon = activityRes.getDrawable(backResId);
@@ -1589,19 +1594,24 @@ public class InAppBrowser extends CordovaPlugin {
          *
          * @return the view with title
          */
-        private View getTitlePage(String value) {
+        private TextView getTitlePage(String value) {
             TextView title = new TextView(cordova.getContext());
             title.setText(value);
             title.setTextSize(16);
             title.setTextColor(Color.BLACK);
             title.setGravity(Gravity.CENTER);
-            title.setPadding(0, this.dpToPixels(4), 0, 0);
+            title.setEllipsize(TextUtils.TruncateAt.END);
+            title.setMaxLines(1);
+            title.setPadding(this.dpToPixels(54), this.dpToPixels(4), this.dpToPixels(54), 0);
             title.setId(Integer.valueOf(9));
             title.setTypeface(null, Typeface.BOLD);
 
-            RelativeLayout.LayoutParams closeLayoutParams = new RelativeLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-            closeLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            title.setLayoutParams(closeLayoutParams);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            params.addRule(RelativeLayout.RIGHT_OF, Integer.valueOf(5));
+            params.addRule(RelativeLayout.LEFT_OF, Integer.valueOf(2));
+
+            title.setLayoutParams(params);
 
             return title;
         }
@@ -1620,11 +1630,11 @@ public class InAppBrowser extends CordovaPlugin {
             subTitle.setEllipsize(TextUtils.TruncateAt.END);
             subTitle.setMaxLines(1);
             subTitle.setId(Integer.valueOf(8));
+            subTitle.setGravity(Gravity.CENTER_HORIZONTAL);
+            subTitle.setPadding(dpToPixels(54), this.dpToPixels(2), dpToPixels(54), this.dpToPixels(6));
 
-            subTitle.setGravity(Gravity.CENTER);
-            subTitle.setPadding(0, this.dpToPixels(2), 0, this.dpToPixels(6));
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
             params.addRule(RelativeLayout.BELOW, Integer.valueOf(9));
             params.addRule(RelativeLayout.RIGHT_OF, Integer.valueOf(5));
             params.addRule(RelativeLayout.LEFT_OF, Integer.valueOf(2));
