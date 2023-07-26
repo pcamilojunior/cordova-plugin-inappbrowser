@@ -74,6 +74,9 @@
         <resource-file src="src/android/res/drawable-mdpi/ic_action_remove.png" target="res/drawable-mdpi/ic_action_remove.png" />
         <resource-file src="src/android/res/drawable-xhdpi/ic_action_remove.png" target="res/drawable-xhdpi/ic_action_remove.png" />
         <resource-file src="src/android/res/drawable-xxhdpi/ic_action_remove.png" target="res/drawable-xxhdpi/ic_action_remove.png" />
+        <resource-file src="src/android/res/drawable-xxhdpi/ic_action_remove.png" target="res/drawable-xxhdpi/ic_action_remove.png" />
+        <resource-file src="src/android/res/drawable/ic_close.xml" target="res/drawable/ic_close.xml" />
+        <resource-file src="src/android/res/drawable/ic_back.xml" target="res/drawable/ic_back.xml" />
 
     </platform>
 
