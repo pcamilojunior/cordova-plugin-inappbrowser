@@ -905,7 +905,7 @@ BOOL isExiting = FALSE;
     // Adicione o separador como uma subview da self.toolbar
     [self.toolbar addSubview:viewDivider];
     
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.toolbar];
     [self.view addSubview:self.addressLabel];
     [self.view addSubview:self.spinner];
@@ -913,7 +913,7 @@ BOOL isExiting = FALSE;
     UIEdgeInsets insets = [self getWindowSafeAreaInsets];
     self.backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, insets.top, self.view.bounds.size.width, self.view.bounds.size.height - insets.top - insets.bottom)];
     self.backgroundView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-    self.backgroundView.backgroundColor = [UIColor grayColor];
+    self.backgroundView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.backgroundView];
     [self.view sendSubviewToBack:self.backgroundView];
 
