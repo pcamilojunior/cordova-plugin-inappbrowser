@@ -35,13 +35,17 @@ class SafariBrowserPlugin: NSObject, SFSafariViewControllerDelegate {
                 print("Browser not open yet or already closed")
                 return
             }
-            if self.window == nil {
-                let window = UIWindow(frame: UIScreen.main.bounds)
-                let tmpController = UIViewController()
-                window.rootViewController = tmpController
-                window.windowLevel = .normal
-                self.window = window
+            
+            if #available(iOS 13.0, *) {
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                    let window = UIWindow(windowScene: windowScene)
+                    let tmpController = UIViewController()
+                    window.rootViewController = tmpController
+                    self.window = window
+                    window.makeKeyAndVisible()
+                }
             }
+
             if !hidden { self.window?.makeKeyAndVisible() }
             if inAppBrowserViewController.presentingViewController == nil {
                 self.window?.rootViewController?.present(inAppBrowserViewController, animated: animated, completion: nil)
